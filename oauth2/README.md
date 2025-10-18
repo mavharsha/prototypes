@@ -1,4 +1,7 @@
-# Basic OAuth2 Server
+# Basic OAuth2 Server 
+```
+cursor generated for learning
+```
 
 A simple OAuth2 authorization server implementation in JavaScript using Express.js, without external OAuth2 libraries.
 
