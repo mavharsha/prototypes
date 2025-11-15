@@ -5,7 +5,10 @@ const app = express();
 const PORT = 3001;
 
 // OAuth2 configuration
-const OAUTH_SERVER = 'http://localhost:3000';
+const OAUTH_SERVER = process.env.OAUTH_SERVER || 'http://localhost:4000';
+const OAUTH_SERVER_PUBLIC = process.env.OAUTH_SERVER_PUBLIC || OAUTH_SERVER; // Browser-accessible URL
+const API_SERVER = process.env.API_SERVER || 'http://localhost:5000';
+const API_SERVER_PUBLIC = process.env.API_SERVER_PUBLIC || API_SERVER; // Browser-accessible URL
 const CLIENT_ID = 'test-client';
 const CLIENT_SECRET = 'test-secret';
 const REDIRECT_URI = 'http://localhost:3001/callback';
@@ -61,7 +64,7 @@ app.get('/', (req, res) => {
             let refreshToken = null;
             
             function startAuth() {
-                const authUrl = '${OAUTH_SERVER}/oauth/authorize?' + 
+                const authUrl = '${OAUTH_SERVER_PUBLIC}/oauth/authorize?' + 
                     'client_id=${CLIENT_ID}&' +
                     'redirect_uri=${encodeURIComponent(REDIRECT_URI)}&' +
                     'response_type=code&' +
@@ -167,12 +170,17 @@ app.get('/callback', async (req, res) => {
   
   try {
     // Exchange authorization code for access token
-    const tokenResponse = await axios.post(`${OAUTH_SERVER}/oauth/token`, {
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: REDIRECT_URI,
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET
+    const params = new URLSearchParams();
+    params.append('grant_type', 'authorization_code');
+    params.append('code', code);
+    params.append('redirect_uri', REDIRECT_URI);
+    params.append('client_id', CLIENT_ID);
+    params.append('client_secret', CLIENT_SECRET);
+    
+    const tokenResponse = await axios.post(`${OAUTH_SERVER}/oauth/token`, params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
     
     const { access_token, refresh_token, expires_in, scope } = tokenResponse.data;
@@ -207,7 +215,7 @@ app.get('/api/protected', async (req, res) => {
   }
   
   try {
-    const response = await axios.get(`${OAUTH_SERVER}/api/protected`, {
+    const response = await axios.get(`${API_SERVER}/api/protected`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -226,11 +234,16 @@ app.post('/refresh-token', async (req, res) => {
   }
   
   try {
-    const response = await axios.post(`${OAUTH_SERVER}/oauth/token`, {
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET
+    const params = new URLSearchParams();
+    params.append('grant_type', 'refresh_token');
+    params.append('refresh_token', refreshToken);
+    params.append('client_id', CLIENT_ID);
+    params.append('client_secret', CLIENT_SECRET);
+    
+    const response = await axios.post(`${OAUTH_SERVER}/oauth/token`, params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
     });
     
     const { access_token, expires_in, scope } = response.data;
@@ -249,5 +262,6 @@ app.post('/refresh-token', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Test Client running on http://localhost:${PORT}`);
-  console.log('Make sure the OAuth2 server is running on http://localhost:3000');
+  console.log(`OAuth Server: ${OAUTH_SERVER}`);
+  console.log(`API Server: ${API_SERVER}`);
 });

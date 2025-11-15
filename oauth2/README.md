@@ -1,160 +1,230 @@
-# Basic OAuth2 Server 
-```
-cursor generated for learning
-```
+# OAuth2 Server with Protected APIs
 
-A simple OAuth2 authorization server implementation in JavaScript using Express.js, without external OAuth2 libraries.
+This project demonstrates a complete OAuth2 implementation with **separated microservices architecture**:
+- **OAuth Server**: Handles authorization and token management (Port 4000)
+- **API Server**: Provides protected API endpoints (Port 5000)
+- **Test Client**: Demo client application to test the OAuth flow (Port 3001)
 
-## Features
+> 📦 Each service runs independently and can be deployed separately or together using Docker Compose.
 
-- **Authorization Code Flow**: Complete implementation of the OAuth2 authorization code grant
-- **Token Management**: Access tokens and refresh tokens with expiration
-- **Client Validation**: Basic client authentication and validation
-- **Protected Resources**: Example protected endpoint
-- **Token Introspection**: Endpoint to validate token status
-- **Test Client**: Interactive web client to demonstrate the OAuth2 flow
-
-## Project Structure
+## Architecture
 
 ```
-oauth2/
-├── server.js          # OAuth2 authorization server
-├── test-client.js     # Test client application
-├── package.json       # Dependencies and scripts
-└── README.md          # This file
+┌─────────────┐         ┌──────────────┐         ┌─────────────┐
+│             │         │              │         │             │
+│ Test Client │◄────────┤ OAuth Server │────────►│ API Server  │
+│             │         │              │         │             │
+│  Port 3001  │         │  Port 4000   │         │  Port 5000  │
+│             │         │              │         │             │
+└─────────────┘         └──────────────┘         └─────────────┘
+      │                        │                        │
+      │                        │                        │
+      └────────── OAuth Flow ──┘                        │
+      └────────────────── Protected API Calls ──────────┘
 ```
 
-## Installation
+## Services
 
-1. Install dependencies:
+### OAuth Server (Port 4000)
+- `/oauth/authorize` - Authorization endpoint
+- `/oauth/token` - Token issuance endpoint
+- `/oauth/introspect` - Token introspection endpoint
+- `/health` - Health check
+
+### API Server (Port 5000)
+- `/api/protected` - Basic protected resource
+- `/api/user/profile` - User profile (requires read scope)
+- `/api/user/update` - Update user (requires write scope)
+- `/api/data` - Get data (requires auth)
+- `/health` - Health check
+
+### Test Client (Port 3001)
+- Web interface to test OAuth2 flow
+- Demonstrates authorization code grant
+- Shows token refresh mechanism
+
+## Quick Start
+
+### 🐳 Using Docker Compose (Recommended)
+
+**Start all services with one command:**
+
+On Windows (PowerShell):
+```powershell
+.\start-services.ps1
+```
+
+On Linux/Mac:
 ```bash
+chmod +x start-services.sh
+./start-services.sh
+```
+
+Or directly:
+```bash
+docker-compose up --build
+```
+
+**Access the services:**
+- Test Client UI: http://localhost:3001
+- OAuth Server: http://localhost:4000
+- API Server: http://localhost:5000
+
+**Stop services:**
+```bash
+docker-compose down
+```
+
+For detailed setup instructions, see [SETUP.md](SETUP.md)
+
+### Manual Setup
+
+#### 1. Install Dependencies
+
+For each service, install dependencies:
+
+```bash
+# OAuth Server
+cd oauth-server
+npm install
+
+# API Server
+cd ../api-server
+npm install
+
+# Test Client (in root)
+cd ..
 npm install
 ```
 
-## Running the Server
+#### 2. Start Services
 
-### Start the OAuth2 Server
+Start each service in a separate terminal:
+
 ```bash
+# Terminal 1 - OAuth Server
+cd oauth-server
 npm start
-# or
-node server.js
-```
 
-The server will run on `http://localhost:3000`
+# Terminal 2 - API Server
+cd api-server
+npm start
 
-### Start the Test Client
-```bash
+# Terminal 3 - Test Client
 npm run client
-# or
-node test-client.js
 ```
 
-The test client will run on `http://localhost:3001`
+## Testing the OAuth Flow
 
-## OAuth2 Endpoints
+1. Open your browser to `http://localhost:3001`
+2. Click "Authorize with OAuth2 Server"
+3. You'll be redirected to the OAuth server and back
+4. Once authorized, you'll have access and refresh tokens
+5. Click "Access Protected Resource" to call the API server
+6. The API server validates the token with the OAuth server
+7. Try "Refresh Access Token" to get a new token
 
-### Authorization Server (Port 3000)
+## Environment Variables
 
-- `GET /oauth/authorize` - Authorization endpoint
-- `POST /oauth/token` - Token endpoint
-- `GET /api/protected` - Protected resource endpoint
-- `POST /oauth/introspect` - Token introspection endpoint
-- `GET /health` - Health check endpoint
+### OAuth Server
+- `PORT` - Server port (default: 4000)
+- `NODE_ENV` - Environment (development/production)
 
-### Test Client (Port 3001)
+### API Server
+- `PORT` - Server port (default: 5000)
+- `OAUTH_SERVER` - OAuth server URL (default: http://localhost:4000)
+- `NODE_ENV` - Environment (development/production)
 
-- `GET /` - Interactive OAuth2 flow demonstration
-- `GET /callback` - OAuth2 callback handler
-- `GET /api/protected` - Proxy to protected resource
-- `POST /refresh-token` - Token refresh endpoint
+### Test Client
+- `PORT` - Client port (default: 3001)
+- `OAUTH_SERVER` - OAuth server URL (default: http://localhost:4000)
+- `API_SERVER` - API server URL (default: http://localhost:5000)
 
-## OAuth2 Flow Demonstration
+## OAuth2 Flow
 
-1. **Start both servers**:
-   ```bash
-   # Terminal 1
-   npm start
-   
-   # Terminal 2
-   npm run client
-   ```
+1. **Authorization Request**: Client redirects user to OAuth server
+2. **User Consent**: User authorizes the client (auto-approved in this demo)
+3. **Authorization Code**: OAuth server redirects back with code
+4. **Token Exchange**: Client exchanges code for access/refresh tokens
+5. **API Access**: Client uses access token to call protected APIs
+6. **Token Validation**: API server validates token with OAuth server
+7. **Token Refresh**: Client can refresh expired tokens
 
-2. **Open the test client**: Navigate to `http://localhost:3001`
+## Client Credentials
 
-3. **Follow the OAuth2 flow**:
-   - Click "Authorize with OAuth2 Server"
-   - You'll be redirected to the authorization server
-   - The server will automatically approve the request (for demo purposes)
-   - You'll be redirected back with an authorization code
-   - The client will exchange the code for access and refresh tokens
-   - Use the "Access Protected Resource" button to test the protected endpoint
-   - Use the "Refresh Access Token" button to test token refresh
-
-## Client Configuration
-
-The server comes pre-configured with a test client:
-
+Default test client:
 - **Client ID**: `test-client`
 - **Client Secret**: `test-secret`
 - **Redirect URI**: `http://localhost:3001/callback`
 - **Scopes**: `read`, `write`
 
-## API Examples
-
-### Authorization Request
-```
-GET /oauth/authorize?client_id=test-client&redirect_uri=http://localhost:3001/callback&response_type=code&scope=read+write&state=test123
-```
-
-### Token Exchange
-```bash
-curl -X POST http://localhost:3000/oauth/token \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "grant_type=authorization_code&code=AUTH_CODE&redirect_uri=http://localhost:3001/callback&client_id=test-client&client_secret=test-secret"
-```
-
-### Access Protected Resource
-```bash
-curl -H "Authorization: Bearer ACCESS_TOKEN" http://localhost:3000/api/protected
-```
-
-### Token Introspection
-```bash
-curl -X POST http://localhost:3000/oauth/introspect \
-  -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "token=ACCESS_TOKEN"
-```
-
 ## Security Notes
 
-This is a **demo implementation** for educational purposes. For production use, consider:
+⚠️ **This is a demo implementation for learning purposes.**
 
-- Use a proper database instead of in-memory storage
-- Implement proper user authentication and consent screens
+In production, you should:
+- Use a proper database for token storage
+- Implement proper user authentication
+- Use HTTPS for all communications
+- Implement rate limiting
+- Add proper logging and monitoring
+- Use environment variables for secrets
+- Implement PKCE for public clients
 - Add CSRF protection
-- Use HTTPS in production
-- Implement proper token storage and rotation
-- Add rate limiting and security headers
-- Validate all inputs thoroughly
-- Use secure random token generation
+- Implement proper session management
 
-## OAuth2 Grant Types Supported
+## Documentation
 
-- **Authorization Code Grant**: Primary flow for web applications
-- **Refresh Token Grant**: For obtaining new access tokens
+- 🚀 [GET_STARTED.md](GET_STARTED.md) - **Start here!** Quick 2-minute guide
+- 📘 [SETUP.md](SETUP.md) - Detailed setup and installation guide
+- 🏗️ [ARCHITECTURE.md](ARCHITECTURE.md) - System architecture and design
+- ⚡ [QUICK_REFERENCE.md](QUICK_REFERENCE.md) - Quick commands and API reference
+- 🔄 [MIGRATION.md](MIGRATION.md) - Migration guide from monolithic version
+- 📋 [CHANGES.md](CHANGES.md) - Summary of all changes made
+- 📝 [OLD_SERVER_NOTE.md](OLD_SERVER_NOTE.md) - Note about legacy server.js
 
-## Token Types
+## Project Structure
 
-- **Access Tokens**: Bearer tokens for API access (1 hour expiration)
-- **Refresh Tokens**: Long-lived tokens for obtaining new access tokens
-- **Authorization Codes**: Short-lived codes for token exchange (10 minutes)
+```
+oauth2/
+├── oauth-server/              # OAuth Authorization Server
+│   ├── server.js              # OAuth endpoints implementation
+│   ├── package.json           # Dependencies
+│   └── Dockerfile             # Container configuration
+│
+├── api-server/                # Protected API Server
+│   ├── server.js              # Protected API endpoints
+│   ├── package.json           # Dependencies
+│   └── Dockerfile             # Container configuration
+│
+├── test-client.js             # Demo OAuth client application
+├── docker-compose.yml         # Multi-container orchestration
+├── start-services.sh          # Quick start script (Linux/Mac)
+├── start-services.ps1         # Quick start script (Windows)
+│
+└── server.js                  # Legacy monolithic version (deprecated)
+```
 
-## Error Handling
+## Features
 
-The server implements standard OAuth2 error responses:
+✅ Complete OAuth2 Authorization Code Flow  
+✅ Token Refresh Mechanism  
+✅ Token Introspection  
+✅ Scope-based Authorization  
+✅ Microservices Architecture  
+✅ Docker Compose Support  
+✅ Health Check Endpoints  
+✅ CORS Enabled  
+✅ Interactive Test Client  
 
-- `invalid_request`: Missing or malformed parameters
-- `invalid_client`: Invalid client credentials
-- `invalid_grant`: Invalid authorization code or refresh token
-- `unsupported_grant_type`: Unsupported grant type
-- `invalid_token`: Invalid or expired access token
+## Contributing
+
+This is a learning/demo project. Feel free to:
+- Fork and experiment
+- Report issues
+- Suggest improvements
+- Add new OAuth2 flows
+
+## License
+
+MIT

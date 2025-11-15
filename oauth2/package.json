@@ -1,13 +1,15 @@
 {
   "name": "oauth2-server",
-  "version": "1.0.0",
-  "description": "Basic OAuth2 server implementation",
+  "version": "2.0.0",
+  "description": "OAuth2 server with microservices architecture",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "echo 'Use docker-compose up or start individual services' && echo 'OAuth: cd oauth-server && npm start' && echo 'API: cd api-server && npm start' && echo 'Client: npm run client'",
     "client": "node test-client.js",
-    "test": "node server.js & node test-client.js"
+    "legacy": "node server.js",
+    "docker:up": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
   },
   "dependencies": {
     "express": "^4.18.2",
