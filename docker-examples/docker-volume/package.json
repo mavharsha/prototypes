@@ -1,0 +1,16 @@
+{
+  "name": "docker-volume-example",
+  "version": "1.0.0",
+  "description": "Node.js example demonstrating Docker volumes with persistent event logging",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["docker", "volumes", "faker", "logging"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^8.3.1"
+  }
+}
+

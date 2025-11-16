@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  event-logger:
+    build: .
+    container_name: event-logger
+    volumes:
+      # Named volume - data persists even after container is removed
+      - event-data:/data
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  # Named volume for persistent storage
+  event-data:
+    driver: local
+
