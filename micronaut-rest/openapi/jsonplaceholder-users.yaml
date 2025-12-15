@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: JSONPlaceholder Users API
+  version: 1.0.0
+  description: >
+    OpenAPI spec describing the `https://jsonplaceholder.typicode.com/users` endpoint.
+    Data is static/dummy content provided by JSONPlaceholder.
+servers:
+  - url: https://jsonplaceholder.typicode.com
+paths:
+  /users:
+    get:
+      summary: List users
+      operationId: listUsers
+      responses:
+        '200':
+          description: Successful response containing all users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                sample:
+                  value:
+                    - id: 1
+                      name: Leanne Graham
+                      username: Bret
+                      email: Sincere@april.biz
+                      address:
+                        street: Kulas Light
+                        suite: Apt. 556
+                        city: Gwenborough
+                        zipcode: 92998-3874
+                        geo:
+                          lat: "-37.3159"
+                          lng: "81.1496"
+                      phone: 1-770-736-8031 x56442
+                      website: hildegard.org
+                      company:
+                        name: Romaguera-Crona
+                        catchPhrase: Multi-layered client-server neural-net
+                        bs: harness real-time e-markets
+components:
+  schemas:
+    Geo:
+      type: object
+      properties:
+        lat:
+          type: string
+        lng:
+          type: string
+      required: [lat, lng]
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+        suite:
+          type: string
+        city:
+          type: string
+        zipcode:
+          type: string
+        geo:
+          $ref: '#/components/schemas/Geo'
+      required: [street, suite, city, zipcode, geo]
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+        catchPhrase:
+          type: string
+        bs:
+          type: string
+      required: [name, catchPhrase, bs]
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        address:
+          $ref: '#/components/schemas/Address'
+        phone:
+          type: string
+        website:
+          type: string
+        company:
+          $ref: '#/components/schemas/Company'
+      required:
+        - id
+        - name
+        - username
+        - email
+        - address
+        - phone
+        - website
+        - company
