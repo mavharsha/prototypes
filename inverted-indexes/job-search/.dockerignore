@@ -1,0 +1,29 @@
+# Build artifacts
+target/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Local data
+data/
+
+# Logs
+*.log
+logs/
+
+# Documentation (not needed in image)
+*.md
+docs/
+
+# Docker files (avoid recursive copy)
+Dockerfile*
+docker-compose*.yml
+.dockerignore

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn clean package:*)",
+      "Bash(java -jar:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}
