@@ -1,0 +1,132 @@
+{
+  "spaces": [
+    {
+      "spaceKey": "ENGINEERING",
+      "spaceName": "Engineering Team",
+      "description": "Technical documentation, architecture, and engineering guidelines",
+      "spaceType": "global",
+      "creator": "admin"
+    },
+    {
+      "spaceKey": "HR",
+      "spaceName": "Human Resources",
+      "description": "HR policies, procedures, and employee resources",
+      "spaceType": "global",
+      "creator": "admin"
+    },
+    {
+      "spaceKey": "DEVOPS",
+      "spaceName": "DevOps",
+      "description": "Infrastructure, deployment, and operations documentation",
+      "spaceType": "global",
+      "creator": "admin"
+    }
+  ],
+  "pages": [
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "Engineering Home",
+      "labels": ["home", "engineering"],
+      "creator": "admin",
+      "body": "<h1>Welcome to Engineering</h1><p>This space contains all technical documentation for our engineering team.</p><h2>Quick Links</h2><ul><li>Getting Started Guide</li><li>Code Review Guidelines</li><li>Architecture Overview</li></ul><ac:structured-macro ac:name=\"info\" ac:schema-version=\"1\"><ac:rich-text-body><p>New engineers should start with the Getting Started Guide.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "Getting Started Guide",
+      "labels": ["onboarding", "guide", "new-hire"],
+      "creator": "jsmith",
+      "body": "<h1>Getting Started Guide</h1><p>Welcome to the engineering team! This guide will help you set up your development environment and understand our workflows.</p><h2>Prerequisites</h2><ul><li>Git installed</li><li>Docker Desktop</li><li>JDK 21 or later</li><li>IntelliJ IDEA or VS Code</li></ul><h2>Setting Up Your Environment</h2><p>Follow these steps to configure your local development environment:</p><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">bash</ac:parameter><ac:plain-text-body><![CDATA[# Clone the repository\ngit clone https://github.com/company/main-repo.git\n\n# Install dependencies\n./gradlew build\n\n# Start local services\ndocker-compose up -d]]></ac:plain-text-body></ac:structured-macro><h2>First Week Checklist</h2><ac:task-list><ac:task><ac:task-id>1</ac:task-id><ac:task-status>incomplete</ac:task-status><ac:task-body>Complete security training</ac:task-body></ac:task><ac:task><ac:task-id>2</ac:task-id><ac:task-status>incomplete</ac:task-status><ac:task-body>Set up development environment</ac:task-body></ac:task><ac:task><ac:task-id>3</ac:task-id><ac:task-status>incomplete</ac:task-status><ac:task-body>Review code guidelines</ac:task-body></ac:task></ac:task-list>"
+    },
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "Code Review Guidelines",
+      "labels": ["process", "code-review", "best-practices"],
+      "creator": "mjohnson",
+      "body": "<h1>Code Review Guidelines</h1><p>All code changes must go through peer review before merging. This document outlines our code review process and expectations.</p><h2>Review Process</h2><ol><li>Create a pull request with a clear description</li><li>Assign at least one reviewer</li><li>Address all feedback</li><li>Get approval before merging</li></ol><h2>What to Look For</h2><table class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\">Category</th><th class=\"confluenceTh\">Check</th></tr><tr><td class=\"confluenceTd\">Correctness</td><td class=\"confluenceTd\">Does the code do what it claims?</td></tr><tr><td class=\"confluenceTd\">Security</td><td class=\"confluenceTd\">Are there any security vulnerabilities?</td></tr><tr><td class=\"confluenceTd\">Performance</td><td class=\"confluenceTd\">Are there any obvious performance issues?</td></tr><tr><td class=\"confluenceTd\">Readability</td><td class=\"confluenceTd\">Is the code easy to understand?</td></tr></tbody></table><ac:structured-macro ac:name=\"warning\" ac:schema-version=\"1\"><ac:parameter ac:name=\"title\">Important</ac:parameter><ac:rich-text-body><p>Never approve code without actually reviewing it. Rubber-stamping is not acceptable.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "Architecture Overview",
+      "labels": ["architecture", "design", "system"],
+      "creator": "alee",
+      "body": "<h1>System Architecture</h1><p>Our platform consists of several microservices communicating through event-driven architecture.</p><h2>Core Services</h2><ul><li><strong>API Gateway</strong> - Entry point for all client requests</li><li><strong>User Service</strong> - Authentication and user management</li><li><strong>Order Service</strong> - Order processing and management</li><li><strong>Payment Service</strong> - Payment processing integration</li><li><strong>Notification Service</strong> - Email, SMS, and push notifications</li></ul><h2>Technology Stack</h2><table class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\">Layer</th><th class=\"confluenceTh\">Technology</th></tr><tr><td class=\"confluenceTd\">Backend</td><td class=\"confluenceTd\">Java 21, Spring Boot 3</td></tr><tr><td class=\"confluenceTd\">Database</td><td class=\"confluenceTd\">PostgreSQL, Redis</td></tr><tr><td class=\"confluenceTd\">Messaging</td><td class=\"confluenceTd\">Apache Kafka</td></tr><tr><td class=\"confluenceTd\">Container</td><td class=\"confluenceTd\">Docker, Kubernetes</td></tr></tbody></table><h2>Data Flow</h2><p>Requests flow through the API Gateway, which handles authentication and routes to appropriate services. Services communicate asynchronously via Kafka for non-blocking operations.</p>"
+    },
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "Database Schema Guidelines",
+      "labels": ["database", "postgresql", "best-practices"],
+      "creator": "bwang",
+      "body": "<h1>Database Schema Guidelines</h1><p>Guidelines for designing and maintaining database schemas in our PostgreSQL databases.</p><h2>Naming Conventions</h2><ul><li>Use snake_case for table and column names</li><li>Use plural names for tables (users, orders, products)</li><li>Primary keys should be named 'id'</li><li>Foreign keys should be named 'entity_id' (e.g., user_id)</li></ul><h2>Standard Columns</h2><p>All tables should include these standard columns:</p><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">sql</ac:parameter><ac:plain-text-body><![CDATA[CREATE TABLE example (\n    id BIGSERIAL PRIMARY KEY,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),\n    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),\n    created_by VARCHAR(255),\n    updated_by VARCHAR(255)\n);]]></ac:plain-text-body></ac:structured-macro><h2>Indexing Strategy</h2><p>Create indexes for:</p><ul><li>Foreign keys</li><li>Columns used in WHERE clauses</li><li>Columns used in ORDER BY</li></ul><ac:structured-macro ac:name=\"note\" ac:schema-version=\"1\"><ac:rich-text-body><p>Always test query performance with EXPLAIN ANALYZE before and after adding indexes.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "ENGINEERING",
+      "title": "API Design Standards",
+      "labels": ["api", "rest", "design", "standards"],
+      "creator": "ckim",
+      "body": "<h1>API Design Standards</h1><p>Our REST API design follows these standards to ensure consistency across all services.</p><h2>URL Structure</h2><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">text</ac:parameter><ac:plain-text-body><![CDATA[GET    /api/v1/users           # List users\nGET    /api/v1/users/{id}      # Get user\nPOST   /api/v1/users           # Create user\nPUT    /api/v1/users/{id}      # Update user\nDELETE /api/v1/users/{id}      # Delete user]]></ac:plain-text-body></ac:structured-macro><h2>Response Format</h2><p>All responses should follow this structure:</p><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">json</ac:parameter><ac:plain-text-body><![CDATA[{\n  \"data\": { ... },\n  \"meta\": {\n    \"timestamp\": \"2024-01-15T10:30:00Z\",\n    \"requestId\": \"abc-123\"\n  }\n}]]></ac:plain-text-body></ac:structured-macro><h2>Error Handling</h2><p>Errors should return appropriate HTTP status codes and a consistent error body:</p><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">json</ac:parameter><ac:plain-text-body><![CDATA[{\n  \"error\": {\n    \"code\": \"VALIDATION_ERROR\",\n    \"message\": \"Invalid input\",\n    \"details\": [...]\n  }\n}]]></ac:plain-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "DEVOPS",
+      "title": "DevOps Home",
+      "labels": ["home", "devops"],
+      "creator": "admin",
+      "body": "<h1>DevOps Documentation</h1><p>This space contains infrastructure and deployment documentation.</p><h2>Key Topics</h2><ul><li>Kubernetes Deployment Guide</li><li>CI/CD Pipeline Configuration</li><li>Monitoring and Alerting</li><li>Incident Response</li></ul>"
+    },
+    {
+      "spaceKey": "DEVOPS",
+      "title": "Kubernetes Deployment Guide",
+      "labels": ["kubernetes", "deployment", "k8s", "infrastructure"],
+      "creator": "dpark",
+      "body": "<h1>Kubernetes Deployment Guide</h1><p>This guide covers deploying applications to our Kubernetes clusters.</p><h2>Cluster Access</h2><p>To access the cluster, you need kubectl configured with the appropriate context:</p><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">bash</ac:parameter><ac:plain-text-body><![CDATA[# Set context to production\nkubectl config use-context prod-cluster\n\n# Verify access\nkubectl get nodes]]></ac:plain-text-body></ac:structured-macro><h2>Deployment Process</h2><ol><li>Build and push Docker image</li><li>Update Kubernetes manifests</li><li>Apply changes with kubectl or ArgoCD</li><li>Verify deployment status</li></ol><h2>Example Deployment</h2><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">yaml</ac:parameter><ac:plain-text-body><![CDATA[apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: my-service\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: my-service\n  template:\n    spec:\n      containers:\n      - name: my-service\n        image: registry/my-service:latest\n        ports:\n        - containerPort: 8080]]></ac:plain-text-body></ac:structured-macro><ac:structured-macro ac:name=\"warning\" ac:schema-version=\"1\"><ac:parameter ac:name=\"title\">Production Deployments</ac:parameter><ac:rich-text-body><p>Always deploy to staging first and verify before production deployment.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "DEVOPS",
+      "title": "CI/CD Pipeline Configuration",
+      "labels": ["cicd", "jenkins", "github-actions", "automation"],
+      "creator": "egarcia",
+      "body": "<h1>CI/CD Pipeline Configuration</h1><p>Our continuous integration and deployment pipelines are built using GitHub Actions.</p><h2>Pipeline Stages</h2><ol><li><strong>Build</strong> - Compile code and run unit tests</li><li><strong>Test</strong> - Integration and end-to-end tests</li><li><strong>Security Scan</strong> - SAST and dependency scanning</li><li><strong>Deploy Staging</strong> - Automatic deployment to staging</li><li><strong>Deploy Production</strong> - Manual approval required</li></ol><h2>Example Workflow</h2><ac:structured-macro ac:name=\"code\" ac:schema-version=\"1\"><ac:parameter ac:name=\"language\">yaml</ac:parameter><ac:plain-text-body><![CDATA[name: CI/CD Pipeline\non:\n  push:\n    branches: [main]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Build\n        run: ./gradlew build\n      - name: Test\n        run: ./gradlew test]]></ac:plain-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "DEVOPS",
+      "title": "Monitoring and Alerting",
+      "labels": ["monitoring", "prometheus", "grafana", "alerting"],
+      "creator": "fchen",
+      "body": "<h1>Monitoring and Alerting</h1><p>We use Prometheus for metrics collection and Grafana for visualization.</p><h2>Key Metrics</h2><table class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\">Metric</th><th class=\"confluenceTh\">Description</th><th class=\"confluenceTh\">Alert Threshold</th></tr><tr><td class=\"confluenceTd\">request_latency_p99</td><td class=\"confluenceTd\">99th percentile latency</td><td class=\"confluenceTd\">> 500ms</td></tr><tr><td class=\"confluenceTd\">error_rate</td><td class=\"confluenceTd\">HTTP 5xx error rate</td><td class=\"confluenceTd\">> 1%</td></tr><tr><td class=\"confluenceTd\">cpu_usage</td><td class=\"confluenceTd\">CPU utilization</td><td class=\"confluenceTd\">> 80%</td></tr><tr><td class=\"confluenceTd\">memory_usage</td><td class=\"confluenceTd\">Memory utilization</td><td class=\"confluenceTd\">> 85%</td></tr></tbody></table><h2>Dashboard Access</h2><p>Grafana dashboards are available at <a href=\"https://grafana.internal\">https://grafana.internal</a>.</p><h2>On-Call Rotation</h2><p>Alerts are routed through PagerDuty to the on-call engineer. Check the on-call schedule in OpsGenie.</p>"
+    },
+    {
+      "spaceKey": "HR",
+      "title": "HR Home",
+      "labels": ["home", "hr"],
+      "creator": "admin",
+      "body": "<h1>Human Resources</h1><p>Welcome to the HR documentation space. Here you'll find policies, procedures, and resources for employees.</p><h2>Quick Links</h2><ul><li>Employee Handbook</li><li>Time Off Policy</li><li>Benefits Information</li><li>Performance Reviews</li></ul>"
+    },
+    {
+      "spaceKey": "HR",
+      "title": "Employee Handbook",
+      "labels": ["policy", "handbook", "employee"],
+      "creator": "hthompson",
+      "body": "<h1>Employee Handbook</h1><p>This handbook outlines company policies, expectations, and resources for all employees.</p><h2>Company Values</h2><ul><li><strong>Integrity</strong> - We do the right thing</li><li><strong>Innovation</strong> - We embrace change and creativity</li><li><strong>Collaboration</strong> - We work together effectively</li><li><strong>Excellence</strong> - We strive for quality in everything we do</li></ul><h2>Work Hours</h2><p>Standard work hours are 9 AM to 5 PM, Monday through Friday. We offer flexible scheduling options with manager approval.</p><h2>Remote Work</h2><p>Employees may work remotely up to 3 days per week with manager approval. Full remote arrangements require VP approval.</p><ac:structured-macro ac:name=\"info\" ac:schema-version=\"1\"><ac:rich-text-body><p>For questions about policies, contact HR at hr@company.com.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "HR",
+      "title": "Time Off Policy",
+      "labels": ["policy", "time-off", "pto", "vacation"],
+      "creator": "hthompson",
+      "body": "<h1>Time Off Policy</h1><p>Our time off policy is designed to support work-life balance while meeting business needs.</p><h2>PTO Allowance</h2><table class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\">Years of Service</th><th class=\"confluenceTh\">Annual PTO Days</th></tr><tr><td class=\"confluenceTd\">0-2 years</td><td class=\"confluenceTd\">15 days</td></tr><tr><td class=\"confluenceTd\">3-5 years</td><td class=\"confluenceTd\">20 days</td></tr><tr><td class=\"confluenceTd\">6+ years</td><td class=\"confluenceTd\">25 days</td></tr></tbody></table><h2>Requesting Time Off</h2><ol><li>Submit request in HR system at least 2 weeks in advance</li><li>Manager reviews and approves/denies</li><li>Receive confirmation email</li></ol><h2>Sick Leave</h2><p>Sick leave is separate from PTO. You receive 10 sick days per year. Unused sick days do not roll over.</p><ac:structured-macro ac:name=\"note\" ac:schema-version=\"1\"><ac:rich-text-body><p>For extended medical leave, contact HR to discuss FMLA options.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "HR",
+      "title": "Benefits Overview",
+      "labels": ["benefits", "insurance", "401k", "compensation"],
+      "creator": "iwilson",
+      "body": "<h1>Benefits Overview</h1><p>We offer a comprehensive benefits package to support our employees and their families.</p><h2>Health Insurance</h2><ul><li>Medical - PPO and HMO options</li><li>Dental - Preventive and major coverage</li><li>Vision - Annual exam and frames/contacts</li></ul><h2>Retirement</h2><p>401(k) plan with company match:</p><ul><li>Company matches 100% of first 3%</li><li>Company matches 50% of next 2%</li><li>Immediate vesting</li></ul><h2>Other Benefits</h2><ul><li>Life insurance (2x salary)</li><li>Disability insurance (short and long term)</li><li>Employee assistance program (EAP)</li><li>Gym membership subsidy</li><li>Professional development budget</li></ul><ac:structured-macro ac:name=\"info\" ac:schema-version=\"1\"><ac:rich-text-body><p>Benefits enrollment opens annually in November. Contact benefits@company.com with questions.</p></ac:rich-text-body></ac:structured-macro>"
+    },
+    {
+      "spaceKey": "HR",
+      "title": "Performance Review Process",
+      "labels": ["performance", "review", "feedback", "career"],
+      "creator": "jmartinez",
+      "body": "<h1>Performance Review Process</h1><p>Our performance review process is designed to support employee growth and development.</p><h2>Review Cycle</h2><p>Performance reviews are conducted twice per year:</p><ul><li><strong>Mid-Year Review</strong> (June) - Progress check and goal adjustment</li><li><strong>Annual Review</strong> (December) - Full evaluation and compensation review</li></ul><h2>Review Components</h2><ol><li>Self-assessment</li><li>Peer feedback (360 review)</li><li>Manager evaluation</li><li>Calibration meeting</li><li>Review discussion</li></ol><h2>Rating Scale</h2><table class=\"confluenceTable\"><tbody><tr><th class=\"confluenceTh\">Rating</th><th class=\"confluenceTh\">Description</th></tr><tr><td class=\"confluenceTd\">Exceeds Expectations</td><td class=\"confluenceTd\">Consistently exceeds role requirements</td></tr><tr><td class=\"confluenceTd\">Meets Expectations</td><td class=\"confluenceTd\">Fully meets role requirements</td></tr><tr><td class=\"confluenceTd\">Developing</td><td class=\"confluenceTd\">Working toward meeting expectations</td></tr><tr><td class=\"confluenceTd\">Below Expectations</td><td class=\"confluenceTd\">Not meeting role requirements</td></tr></tbody></table>"
+    }
+  ]
+}
