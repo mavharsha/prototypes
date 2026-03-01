@@ -1,0 +1,22 @@
+{
+  "name": "star-bank",
+  "version": "1.0.0",
+  "description": "STAR Story Bank Builder - CLI agent for building interview-ready STAR stories",
+  "type": "module",
+  "bin": {
+    "star-bank": "./bin/star-bank.js"
+  },
+  "scripts": {
+    "start": "node bin/star-bank.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "chalk": "^5.4.0",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.0.0",
+    "dotenv": "^16.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
