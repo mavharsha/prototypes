@@ -1,0 +1,75 @@
+micronaut:
+  application:
+    name: ecommerce-api
+
+  server:
+    port: 8080
+
+  # Enable bean introspection for better startup performance
+  io:
+    watch:
+      paths: src/main
+      restart: false
+
+  # Security configuration
+  security:
+    enabled: true
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: '"${JWT_SECRET:pleaseChangeThisSecretForProduction12345}"'
+              jws-algorithm: HS256
+        generator:
+          access-token:
+            expiration: 3600  # 1 hour
+    intercept-url-map:
+      - pattern: /api/auth/**
+        http-method: POST
+        access:
+          - isAnonymous()
+      - pattern: /health
+        access:
+          - isAnonymous()
+      - pattern: /api/products
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/products/**
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/**
+        access:
+          - isAuthenticated()
+
+# Rate limiting configuration
+rate-limit:
+  enabled: true
+  requests-per-minute: 60
+  burst-capacity: 10
+
+# Logging configuration
+logging:
+  request-response:
+    enabled: true
+    log-headers: true
+    log-body: false
+    max-body-length: 1000
+    exclude-paths:
+      - /health
+      - /metrics
+    sensitive-headers:
+      - Authorization
+      - Cookie
+      - X-Api-Key
+  audit:
+    enabled: true
+
+# Logger levels
+logger:
+  levels:
+    com.example.ecommerce: DEBUG
+    AUDIT: INFO

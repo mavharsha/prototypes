@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ========================================= -->
+    <!-- Parent Reference                          -->
+    <!-- Inherits: dependency versions, plugins    -->
+    <!-- ========================================= -->
+    <parent>
+        <groupId>com.example.ecommerce</groupId>
+        <artifactId>ecommerce-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ecommerce-common</artifactId>
+    <name>E-Commerce Common</name>
+    <description>Shared DTOs, utilities, and exceptions used across all modules</description>
+
+    <!-- ========================================= -->
+    <!-- This module has NO internal dependencies -->
+    <!-- It's the foundation layer                -->
+    <!-- ========================================= -->
+    <dependencies>
+        <!-- Serialization for DTOs -->
+        <dependency>
+            <groupId>io.micronaut.serde</groupId>
+            <artifactId>micronaut-serde-jackson</artifactId>
+        </dependency>
+
+        <!-- Validation annotations -->
+        <dependency>
+            <groupId>io.micronaut.validation</groupId>
+            <artifactId>micronaut-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

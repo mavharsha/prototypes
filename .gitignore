@@ -156,3 +156,6 @@ task-tracker-with-plan/
 
 # claude
 **/.claude/settings.local.json
+
+#java
+target/
