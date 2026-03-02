@@ -159,3 +159,4 @@ task-tracker-with-plan/
 
 #java
 target/
+*.class
