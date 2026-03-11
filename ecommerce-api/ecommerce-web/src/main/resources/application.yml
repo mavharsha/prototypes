@@ -1,0 +1,90 @@
+micronaut:
+  application:
+    name: ecommerce-catalogue-api
+
+  server:
+    port: 8080
+
+  io:
+    watch:
+      paths: src/main
+      restart: false
+
+  security:
+    enabled: true
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: '"${JWT_SECRET:pleaseChangeThisSecretForProduction12345}"'
+              jws-algorithm: HS256
+        generator:
+          access-token:
+            expiration: 3600
+    intercept-url-map:
+      - pattern: /api/auth/**
+        http-method: POST
+        access:
+          - isAnonymous()
+      - pattern: /health
+        access:
+          - isAnonymous()
+      - pattern: /api/categories
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/categories/**
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/brands
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/brands/**
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/products
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/products/**
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /api/products/search
+        http-method: POST
+        access:
+          - isAnonymous()
+      - pattern: /api/**
+        access:
+          - isAuthenticated()
+
+rate-limit:
+  enabled: true
+  requests-per-minute: 60
+  burst-capacity: 10
+
+logging:
+  request-response:
+    enabled: true
+    log-headers: true
+    log-body: false
+    max-body-length: 1000
+    exclude-paths:
+      - /health
+      - /metrics
+    sensitive-headers:
+      - Authorization
+      - Cookie
+      - X-Api-Key
+  audit:
+    enabled: true
+
+logger:
+  levels:
+    com.example.ecommerce: DEBUG
+    AUDIT: INFO
