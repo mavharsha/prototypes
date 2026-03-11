@@ -109,6 +109,24 @@ public class OrderServiceImpl implements OrderService {
         return toDto(saved);
     }
 
+    @Override
+    public OrderDto createOrderFromCart(OrderDto dto) {
+        Order order = new Order(dto.customerId());
+
+        for (OrderItemDto itemDto : dto.items()) {
+            OrderItem item = new OrderItem(
+                    itemDto.productId(),
+                    itemDto.productName(),
+                    itemDto.quantity(),
+                    itemDto.unitPrice()
+            );
+            order.getItems().add(item);
+        }
+
+        Order saved = orderRepository.save(order);
+        return toDto(saved);
+    }
+
     private OrderDto toDto(Order order) {
         List<OrderItemDto> items = order.getItems().stream()
                 .map(item -> new OrderItemDto(

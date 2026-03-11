@@ -20,4 +20,10 @@ public interface OrderService {
     OrderDto confirmOrder(String id);
 
     OrderDto cancelOrder(String id);
+
+    /**
+     * Creates an order from cart items without reducing stock.
+     * Stock was already reserved by the reservation system.
+     */
+    OrderDto createOrderFromCart(OrderDto orderDto);
 }
