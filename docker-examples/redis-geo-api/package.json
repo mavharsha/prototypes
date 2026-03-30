@@ -1,0 +1,17 @@
+{
+  "name": "redis-geo-api",
+  "version": "1.0.0",
+  "description": "Redis GEO commands demo — location-based store search",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:hash": "node index-hash.js",
+    "start:h3": "node index-h3.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "h3-js": "^4.1.0",
+    "redis": "^4.6.12"
+  }
+}

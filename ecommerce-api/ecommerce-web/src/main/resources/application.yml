@@ -59,9 +59,18 @@ micronaut:
         http-method: POST
         access:
           - isAnonymous()
+      - pattern: /api/pricing/**
+        http-method: POST
+        access:
+          - isAnonymous()
       - pattern: /api/**
         access:
           - isAuthenticated()
+
+pricing:
+  tax-rate: 0.08
+  standard-shipping-rate: 5.99
+  priority-shipping-rate: 14.99
 
 rate-limit:
   enabled: true

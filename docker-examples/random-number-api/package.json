@@ -1,0 +1,12 @@
+{
+  "name": "random-number-api",
+  "version": "1.0.0",
+  "description": "Random number API with Docker and Nginx load balancer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

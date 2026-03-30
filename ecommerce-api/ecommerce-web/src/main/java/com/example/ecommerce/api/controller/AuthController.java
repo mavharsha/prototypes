@@ -16,6 +16,7 @@ import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
 
 import jakarta.validation.Valid;
+import java.util.Map;
 
 @Controller("/api/auth")
 public class AuthController {
