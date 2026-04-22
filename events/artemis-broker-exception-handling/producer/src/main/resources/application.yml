@@ -1,0 +1,17 @@
+micronaut:
+  application:
+    name: artemis-producer
+  server:
+    port: 8081
+  jms:
+    activemq:
+      artemis:
+        enabled: true
+        connection-string: tcp://localhost:61616
+        username: artemis
+        password: artemis
+
+emitter:
+  enabled: true
+  rate-per-second: 50
+  failure-injection-ratio: 0.0
