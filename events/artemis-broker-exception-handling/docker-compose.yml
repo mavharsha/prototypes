@@ -1,0 +1,19 @@
+services:
+  artemis:
+    image: apache/activemq-artemis:2.33.0
+    container_name: artemis-exception-handling
+    ports:
+      - "61616:61616"   # core / JMS
+      - "8161:8161"     # web console
+    environment:
+      ARTEMIS_USER: artemis
+      ARTEMIS_PASSWORD: artemis
+      ANONYMOUS_LOGIN: "false"
+    volumes:
+      - ./infra/artemis/broker.xml:/var/lib/artemis-broker/etc/broker.xml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8161/console"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
