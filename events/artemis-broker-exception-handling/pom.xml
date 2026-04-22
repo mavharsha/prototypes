@@ -26,6 +26,7 @@
         <micronaut.version>4.10.4</micronaut.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <micronaut.aot.enabled>false</micronaut.aot.enabled>
+        <micronaut.test.resources.enabled>false</micronaut.test.resources.enabled>
         <testcontainers.version>1.20.4</testcontainers.version>
         <awaitility.version>4.2.2</awaitility.version>
         <assertj.version>3.26.3</assertj.version>
@@ -76,6 +77,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
             <scope>test</scope>
         </dependency>
         <dependency>
