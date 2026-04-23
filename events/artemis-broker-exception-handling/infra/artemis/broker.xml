@@ -4,6 +4,7 @@
                xsi:schemaLocation="urn:activemq /schema/artemis-configuration.xsd">
     <core xmlns="urn:activemq:core">
         <name>exception-handling-broker</name>
+        <message-expiry-scan-period>500</message-expiry-scan-period>
         <persistence-enabled>true</persistence-enabled>
         <journal-type>NIO</journal-type>
         <paging-directory>data/paging</paging-directory>
