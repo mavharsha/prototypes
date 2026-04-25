@@ -5,6 +5,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.MountableFile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ArtemisTestResource implements TestPropertyProvider {
@@ -19,7 +20,7 @@ public abstract class ArtemisTestResource implements TestPropertyProvider {
                 .withEnv("ANONYMOUS_LOGIN", "false")
                 .withCopyFileToContainer(
                         MountableFile.forHostPath("../infra/artemis/broker.xml"),
-                        "/var/lib/artemis-broker/etc/broker.xml")
+                        "/var/lib/artemis-instance/etc-override/broker.xml")
                 .waitingFor(Wait.forListeningPort());
         ARTEMIS.start();
     }
@@ -27,12 +28,13 @@ public abstract class ArtemisTestResource implements TestPropertyProvider {
     @Override
     public Map<String, String> getProperties() {
         String url = "tcp://" + ARTEMIS.getHost() + ":" + ARTEMIS.getMappedPort(61616);
-        return Map.of(
-                "micronaut.jms.activemq.artemis.enabled", "true",
-                "micronaut.jms.activemq.artemis.connection-string", url,
-                "micronaut.jms.activemq.artemis.username", "artemis",
-                "micronaut.jms.activemq.artemis.password", "artemis",
-                "emitter.enabled", "false"
-        );
+        Map<String, String> props = new HashMap<>();
+        props.put("micronaut.jms.activemq.artemis.enabled", "true");
+        props.put("micronaut.jms.activemq.artemis.connection-string", url);
+        props.put("micronaut.jms.activemq.artemis.username", "artemis");
+        props.put("micronaut.jms.activemq.artemis.password", "artemis");
+        props.put("emitter.enabled", "false");
+        props.put("micronaut.server.port", "-1");
+        return props;
     }
 }
