@@ -20,7 +20,7 @@ public abstract class ArtemisTestResource implements TestPropertyProvider {
                 .withCopyFileToContainer(
                         MountableFile.forHostPath("../infra/artemis/broker.xml"),
                         "/var/lib/artemis-broker/etc/broker.xml")
-                .waitingFor(Wait.forListeningPort());
+                .waitingFor(Wait.forLogMessage(".*AMQ221007.*", 1));
         ARTEMIS.start();
     }
 
