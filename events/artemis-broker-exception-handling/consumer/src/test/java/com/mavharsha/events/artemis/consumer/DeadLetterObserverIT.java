@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -17,6 +19,13 @@ import static org.awaitility.Awaitility.await;
 @MicronautTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DeadLetterObserverIT extends ArtemisTestResource {
+
+    @Override
+    public Map<String, String> getProperties() {
+        Map<String, String> props = new HashMap<>(super.getProperties());
+        props.put("scenarios.dlq-observer.enabled", "true");
+        return props;
+    }
 
     @Inject ConnectionFactory connectionFactory;
     @Inject DeadLetterObserver observer;

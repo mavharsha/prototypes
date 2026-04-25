@@ -35,6 +35,7 @@ public abstract class ArtemisTestResource implements TestPropertyProvider {
         props.put("micronaut.jms.activemq.artemis.password", "artemis");
         props.put("emitter.enabled", "false");
         props.put("micronaut.server.port", "-1");
+        props.put("scenarios.dlq-observer.enabled", "false");
         return props;
     }
 }
