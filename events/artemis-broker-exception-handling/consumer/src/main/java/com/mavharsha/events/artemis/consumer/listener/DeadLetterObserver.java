@@ -30,7 +30,9 @@ public class DeadLetterObserver {
         try {
             origAddress = raw.getStringProperty("_AMQ_ORIG_ADDRESS");
             origQueue = raw.getStringProperty("_AMQ_ORIG_QUEUE");
-        } catch (Exception ignored) { }
+        } catch (Exception e) {
+            LOG.debug("Could not read origin headers from DLQ message #{}: {}", n, e.getMessage());
+        }
         LOG.warn("DLQ arrival #{} origAddress={} origQueue={} bodyPreview={}",
                 n, origAddress, origQueue,
                 body.length() > 120 ? body.substring(0, 120) + "…" : body);
