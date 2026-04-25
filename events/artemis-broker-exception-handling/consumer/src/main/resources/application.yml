@@ -1,0 +1,36 @@
+micronaut:
+  application:
+    name: artemis-consumer
+  server:
+    port: 8082
+  jms:
+    activemq:
+      artemis:
+        enabled: true
+        connection-string: tcp://localhost:61616
+        username: artemis
+        password: artemis
+
+scenarios:
+  happy-path:
+    enabled: true
+  transient-failure:
+    enabled: true
+  permanent-failure:
+    enabled: true
+  poison-pill:
+    enabled: true
+  expired-ttl:
+    enabled: true
+  business-validation:
+    enabled: true
+  app-retry:
+    enabled: true
+  transacted:
+    enabled: true
+  idempotent:
+    enabled: true
+  slow-consumer:
+    enabled: true
+  dlq-observer:
+    enabled: true
