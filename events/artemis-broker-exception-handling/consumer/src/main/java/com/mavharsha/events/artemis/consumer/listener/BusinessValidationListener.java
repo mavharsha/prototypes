@@ -1,6 +1,7 @@
 package com.mavharsha.events.artemis.consumer.listener;
 
 import com.mavharsha.events.artemis.consumer.model.ScenarioMessage;
+import com.mavharsha.events.artemis.consumer.model.ScenarioQueues;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.jms.annotations.JMSListener;
 import io.micronaut.jms.annotations.Queue;
@@ -48,9 +49,9 @@ public class BusinessValidationListener {
         try (JMSContext ctx = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)) {
             TextMessage m = ctx.createTextMessage(body);
             m.setStringProperty("rejection_reason", reason);
-            m.setStringProperty("original_queue", "scenarios.business-validation");
+            m.setStringProperty("original_queue", ScenarioQueues.BUSINESS_VALIDATION);
             JMSProducer producer = ctx.createProducer();
-            producer.send(ctx.createQueue("scenarios.business-dlq"), m);
+            producer.send(ctx.createQueue(ScenarioQueues.BUSINESS_DLQ), m);
         }
     }
 }
