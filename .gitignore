@@ -160,3 +160,6 @@ task-tracker-with-plan/
 #java
 target/
 *.class
+
+# worktrees
+.worktrees/

@@ -1,0 +1,10 @@
+micronaut:
+  application:
+    name: listener-activemq
+  jms:
+    activemq:
+      artemis:
+        enabled: true
+        connection-string: tcp://localhost:61616
+        username: artemis
+        password: artemis

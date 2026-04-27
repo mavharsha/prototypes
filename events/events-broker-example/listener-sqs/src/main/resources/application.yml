@@ -1,0 +1,14 @@
+micronaut:
+  application:
+    name: listener-sqs
+
+aws:
+  access-key-id: test
+  secret-key: test
+  region: us-east-1
+  services:
+    sqs:
+      endpoint-override: http://localhost:4566
+
+events:
+  queue-name: events-queue
